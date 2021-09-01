@@ -22,7 +22,7 @@ sudo apt install gcc-7 g++-7
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 --slave /usr/bin/g++ g++ /usr/bin/g++-7 --slave /usr/bin/gcov gcov /usr/bin/gcov-7
 ```
 
-3、编译制定c++14 （PCL依赖14，默认好像是11，导致编译失败）
+3、编译时指定c++14 （PCL依赖14，默认是11，导致编译失败）
 ```
 catkin_make -DCMAKE_CXX_STANDARD=14
 ```
