@@ -1,3 +1,32 @@
+Unbuntu 20.04注意事项:
+
+1、手动编译nlopt
+```
+git clone https://github.com/stevengj/nlopt.git
+cd nlopt
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+```
+
+使用去除nlopt依赖的项目：
+```
+https://github.com/Junking1/Fast-Planner-for-ubuntu20.04/tree/ubuntu-20.04
+```
+
+2，切换gcc g++ 到7 （否则eigen运行时内存分配出错）
+```
+sudo apt install gcc-7 g++-7
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 --slave /usr/bin/g++ g++ /usr/bin/g++-7 --slave /usr/bin/gcov gcov /usr/bin/gcov-7
+```
+
+3、编译制定c++14 （PCL依赖14，默认好像是11，导致编译失败）
+```
+catkin_make -DCMAKE_CXX_STANDARD=14
+```
+
 # Fast-Planner
 
 **Fast-Planner** is developed aiming to enable quadrotor fast flight in complex unknown environments. It contains a rich set of carefully designed planning algorithms. 
