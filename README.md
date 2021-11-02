@@ -1,4 +1,4 @@
-#Unbuntu 20.04注意事项:
+# Unbuntu 20.04注意事项:
 
 1、手动编译nlopt
 ```
@@ -27,7 +27,7 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 --slave /
 catkin_make -DCMAKE_CXX_STANDARD=14
 ```
 
-#与VINS-Fusion集成
+# 与VINS-Fusion集成
 launch文件调整（kino_replan.launch）
   <arg name="odom_topic" value="/vins_estimator/odometry" />
   <arg name="camera_pose_topic" value="/vins_estimator/camera_pose"/>
