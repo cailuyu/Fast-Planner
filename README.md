@@ -29,16 +29,21 @@ catkin_make -DCMAKE_CXX_STANDARD=14
 
 # 与VINS-Fusion集成
 launch文件调整（kino_replan.launch）
+```
   <arg name="odom_topic" value="/vins_estimator/odometry" />
   <arg name="camera_pose_topic" value="/vins_estimator/camera_pose"/>
   <arg name="depth_topic" value="/camera/depth/image_rect_raw"/>
   <!--
     <arg name="cloud_topic" value="/vins_estimator/point_cloud2"/>
   -->
- 算法配置要为了支持VINS需要的camera_pose，需要修改kino_algorithm.xml （POSE_STAMPED = 1, ODOMETRY = 2, INVALID_IDX = -10000）
+```
+算法配置要为了支持VINS需要的camera_pose，需要修改kino_algorithm.xml （POSE_STAMPED = 1, ODOMETRY = 2, INVALID_IDX = -10000）
+```
   <param name="sdf_map/pose_type"     value="2"/>
+```
 
 需要ESDF地图，需要调整sdf_map.cpp(重新编译)
+```
     void SDFMap::visCallback(const ros::TimerEvent& /*event*/) {
       publishMap();
       publishMapInflate(false);
@@ -48,6 +53,7 @@ launch文件调整（kino_replan.launch）
       // publishUnknown();
       // publishDepth();
     }
+```
 
 # Fast-Planner
 
