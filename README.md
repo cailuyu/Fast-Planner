@@ -1,4 +1,4 @@
-Unbuntu 20.04注意事项:
+#Unbuntu 20.04注意事项:
 
 1、手动编译nlopt
 ```
@@ -16,7 +16,7 @@ sudo make install
 https://github.com/Junking1/Fast-Planner-for-ubuntu20.04/tree/ubuntu-20.04
 ```
 
-2，切换gcc g++ 到7 （否则eigen运行时内存分配出错）
+2、切换gcc g++ 到7 （否则eigen运行时内存分配出错）
 ```
 sudo apt install gcc-7 g++-7
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 --slave /usr/bin/g++ g++ /usr/bin/g++-7 --slave /usr/bin/gcov gcov /usr/bin/gcov-7
@@ -26,6 +26,28 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100 --slave /
 ```
 catkin_make -DCMAKE_CXX_STANDARD=14
 ```
+
+#与VINS-Fusion集成
+launch文件调整（kino_replan.launch）
+  <arg name="odom_topic" value="/vins_estimator/odometry" />
+  <arg name="camera_pose_topic" value="/vins_estimator/camera_pose"/>
+  <arg name="depth_topic" value="/camera/depth/image_rect_raw"/>
+  <!--
+    <arg name="cloud_topic" value="/vins_estimator/point_cloud2"/>
+  -->
+ 算法配置要为了支持VINS需要的camera_pose，需要修改kino_algorithm.xml （POSE_STAMPED = 1, ODOMETRY = 2, INVALID_IDX = -10000）
+  <param name="sdf_map/pose_type"     value="2"/>
+
+需要ESDF地图，需要调整sdf_map.cpp(重新编译)
+    void SDFMap::visCallback(const ros::TimerEvent& /*event*/) {
+      publishMap();
+      publishMapInflate(false);
+      // publishUpdateRange();
+      publishESDF();
+
+      // publishUnknown();
+      // publishDepth();
+    }
 
 # Fast-Planner
 
